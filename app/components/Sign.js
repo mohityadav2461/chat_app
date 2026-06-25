@@ -4,7 +4,7 @@ import { useSession, signIn, signOut } from "next-auth/react"
 const Sign = () => {
   return (
     <div>
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 px-4">
+      <div className="min-h-screen flex items-center justify-center .bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 px-4">
 
       <div className="bg-white w-full max-w-md rounded-2xl shadow-2xl p-8">
 
