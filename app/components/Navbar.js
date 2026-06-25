@@ -23,6 +23,7 @@ const Navbar = () => {
                     alt="profile"
                     className="w-11 h-11 rounded"
                 />
+                <button onClick={signOut}>logout</button>
             </div>
         </div>
     )
