@@ -25,7 +25,7 @@ export async function POST(req) {
 export async function GET(req){
     const { searchParams } = new URL(req.url);
 
-    const curruser = searchParams.get("sender");
+    const curruser = searchParams.get("curruser");
 
     const db = (await clientPromise).db("chatapp");
     const messages = await db

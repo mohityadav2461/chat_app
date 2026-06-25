@@ -17,7 +17,7 @@ export default function Home() {
   function addMessage(savedMessage) {
     if(!curr_user)return;
     const otherUser =
-      savedMessage.sender === curr_user
+      savedMessage.sender === curr_user._id
         ? savedMessage.receiver
         : savedMessage.sender;
 
@@ -50,7 +50,6 @@ export default function Home() {
     setCurrUser(user);
 
 
-
     const res = await fetch("/api/user", {
       method: "GET",
     });
@@ -68,7 +67,7 @@ export default function Home() {
 
     for (const msg of all_msg) {
       const otherUser =
-        msg.sender === user
+        msg.sender === user._id
           ? msg.receiver
           : msg.sender;
 
@@ -78,7 +77,6 @@ export default function Home() {
 
       groupedChats[otherUser].push(msg);
     }
-
     setChats(groupedChats);
   }
 
@@ -86,9 +84,7 @@ export default function Home() {
 
 
 useEffect(() => {
-  if (status === "authenticated") {
-    initialize(session);
-  }
+  initialize(session);
 }, [session]);
 
 if (status === "loading") {
