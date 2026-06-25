@@ -45,7 +45,7 @@
 //   }
 //   return (
 //     <div className="flex-1 border bg-white flex flex-col">
-      
+
 //       {/* Header */}
 //       <div className="h-16 border-b bg-white px-6 flex items-center gap-3">
 //         <img
@@ -84,23 +84,12 @@ export default function ChatWindow({
   selectedUser,
   curr_user,
   setSelectedUser,
+  messages,
+  addMessage
 }) {
-  const [messages, setMessages] = useState([]);
   const containerRef = useRef(null);
 
-  useEffect(() => {
-    if (!selectedUser || !curr_user) return;
-
-    async function fetchMessages() {
-      const res = await fetch(
-        `/api/msg?sender=${curr_user?._id}&receiver=${selectedUser?._id}`
-      );
-      const data = await res.json();
-      setMessages(data);
-    }
-
-    fetchMessages();
-  }, [selectedUser]);
+  
 
   useEffect(() => {
     if (!containerRef.current) return;
@@ -154,7 +143,7 @@ export default function ChatWindow({
         ref={containerRef}
         className="flex-1 overflow-y-auto p-4 flex flex-col gap-3 bg-gray-50"
       >
-        {messages.map((msg) => (
+        {messages?.map((msg) => (
           <MessageBubble
             key={msg._id}
             message={msg}
@@ -166,8 +155,7 @@ export default function ChatWindow({
       {/* Input */}
 
       <MessageInput
-        messages={messages}
-        setMessages={setMessages}
+        addMessage={addMessage}
         selectedUser={selectedUser}
         curr_user={curr_user}
       />

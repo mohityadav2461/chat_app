@@ -59,8 +59,7 @@
 import { useState } from "react";
 
 export default function MessageInput({
-  messages,
-  setMessages,
+  addMessage,
   selectedUser,
   curr_user,
 }) {
@@ -91,7 +90,7 @@ export default function MessageInput({
 
       const savedMessage = await req.json();
 
-      setMessages([...messages, savedMessage]);
+      addMessage(savedMessage)
     } catch (err) {
       console.log(err);
     }

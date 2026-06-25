@@ -25,8 +25,7 @@ export async function POST(req) {
 export async function GET(req){
     const { searchParams } = new URL(req.url);
 
-    const sender = searchParams.get("sender");
-    const receiver = searchParams.get("receiver");
+    const curruser = searchParams.get("sender");
 
     const db = (await clientPromise).db("chatapp");
     const messages = await db
@@ -34,12 +33,10 @@ export async function GET(req){
     .find({
       $or: [
         {
-          sender: sender,
-          receiver: receiver,
+          sender: curruser,
         },
         {
-          sender: receiver,
-          receiver: sender,
+          receiver: curruser,
         },
       ],
     })
