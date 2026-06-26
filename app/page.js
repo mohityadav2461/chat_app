@@ -6,6 +6,9 @@ import ChatWindow from "./components/ChatWindow";
 import Navbar from "./components/Navbar";
 import Sidebar from "./components/Sidebar";
 import { useEffect, useState } from "react";
+import socket from "@/lib/socket";
+
+
 
 export default function Home() {
   const [selectedUser, setSelectedUser] = useState(null);
@@ -86,6 +89,38 @@ export default function Home() {
 useEffect(() => {
   initialize(session);
 }, [session]);
+
+useEffect(() => {
+  socket.connect();
+
+  return () => {
+    socket.disconnect();
+  };
+}, []);
+
+
+useEffect(() => {
+    if (!curr_user?._id) return;
+
+    socket.emit("register", curr_user._id);
+
+}, [curr_user?._id]);
+
+useEffect(() => {
+    if (!curr_user) return;
+
+    const handleReceiveMessage = (message) => {
+        addMessage(message);
+    };
+
+    socket.on("receive-message", handleReceiveMessage);
+
+    return () => {
+      socket.off("receive-message", handleReceiveMessage);
+    };
+}, [curr_user]);
+
+
 
 if (status === "loading") {
   return (

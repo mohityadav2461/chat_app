@@ -1,4 +1,5 @@
 import { useState } from "react";
+import socket from "@/lib/socket";
 
 export default function MessageInput({
   addMessage,
@@ -33,6 +34,7 @@ export default function MessageInput({
       const savedMessage = await req.json();
 
       addMessage(savedMessage)
+      socket.emit("send-message", savedMessage);
     } catch (err) {
       console.log(err);
     }
