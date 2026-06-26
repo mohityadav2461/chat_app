@@ -60,7 +60,7 @@ export default function Home() {
     setUsers(users);
 
 
-    const all_data = await fetch(`/api/msg?curruser=${user?._id}`, {
+    const all_data = await fetch(`/api/msg?curruser=${user._id}`, {
       method: "GET",
     });
 
@@ -110,7 +110,7 @@ useEffect(() => {
     if (!curr_user) return;
 
     const handleReceiveMessage = (message) => {
-        addMessage(message);
+      addMessage(message);
     };
 
     socket.on("receive-message", handleReceiveMessage);
